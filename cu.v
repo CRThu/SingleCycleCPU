@@ -15,82 +15,83 @@ module cu(
 
     reg [1:0] alu_op;
 
-    always @(negedge reset_n)
+    always @(*)
     begin
-        reg_write       = 0;
-        reg_dst         = 0;
-        alu_src         = 0;
-        branch          = 0;
-        mem_write       = 0;
-        mem_to_reg      = 0;
-        alu_control     = 3'h0;
-        alu_op          = 2'h0;
-    end
+		if(!reset_n)
+		begin
+            reg_write       = 0;
+            reg_dst         = 0;
+            alu_src         = 0;
+            branch          = 0;
+            mem_write       = 0;
+            mem_to_reg      = 0;
+            alu_op          = 2'h0;
+        end
+        else
+        begin
+            /*  main decoder  */
+            // TODO
+            case(op)
+                /*  R-type instructions  */
+                6'b000000:
+                begin
+                    reg_write = 1;
+                    reg_dst = 1;
+                    alu_src = 0;
+                    branch = 0;
+                    mem_write = 0;
+                    mem_to_reg = 0;
+                    alu_op = 2'b10;
+                end
 
-    always@(*)
-    begin
-        /*  main decoder  */
-        // TODO
-        case(op)
-            /*  R-type instructions  */ 
-            6'b000000:
-            begin
-                reg_write = 1;
-                reg_dst = 1;
-                alu_src = 0;
-                branch = 0;
-                mem_write = 0;
-                mem_to_reg = 0;
-                alu_op = 2'b10;
-            end
+                /*  Memory instructions - lw  */ 
+                6'b100011:
+                begin
+                    reg_write = 1;
+                    reg_dst = 0;
+                    alu_src = 1;
+                    branch = 0;
+                    mem_write = 0;
+                    mem_to_reg = 1;
+                    alu_op = 2'b00;
+                end
 
-            /*  Memory instructions - lw  */ 
-            6'b100011:
-            begin
-                reg_write = 1;
-                reg_dst = 0;
-                alu_src = 1;
-                branch = 0;
-                mem_write = 0;
-                mem_to_reg = 1;
-                alu_op = 2'b00;
-            end
+                /*  Memory instructions - sw  */ 
+                6'b101011:
+                begin
+                    reg_write = 0;
+                    reg_dst = 1'hx;
+                    alu_src = 1;
+                    branch = 0;
+                    mem_write = 1;
+                    mem_to_reg = 1'hx;
+                    alu_op = 2'b00;
+                end
 
-            /*  Memory instructions - sw  */ 
-            6'b101011:
-            begin
-                reg_write = 0;
-                reg_dst = 1'hx;
-                alu_src = 1;
-                branch = 0;
-                mem_write = 1;
-                mem_to_reg = 1'hx;
-                alu_op = 2'b00;
-            end
+                /*  Branch instructions - beq  */ 
+                6'b000100:
+                begin
+                    reg_write = 0;
+                    reg_dst = 1'hx;
+                    alu_src = 0;
+                    branch = 1;
+                    mem_write = 0;
+                    mem_to_reg = 1'hx;
+                    alu_op = 2'b01;
+                end
 
-            /*  Branch instructions - beq  */ 
-            6'b000100:
-            begin
-                reg_write = 0;
-                reg_dst = 1'hx;
-                alu_src = 0;
-                branch = 1;
-                mem_write = 0;
-                mem_to_reg = 1'hx;
-                alu_op = 2'b01;
-            end
-
-            default:
-            begin
-                reg_write = 1'hx;
-                reg_dst = 1'hx;
-                alu_src = 1'hx;
-                branch = 1'hx;
-                mem_write = 1'hx;
-                mem_to_reg = 1'hx;
-                alu_op = 2'bxx;
-            end	 
-          endcase
+                default:
+                begin
+                    reg_write = 1'hx;
+                    reg_dst = 1'hx;
+                    alu_src = 1'hx;
+                    branch = 1'hx;
+                    mem_write = 1'hx;
+                    mem_to_reg = 1'hx;
+                    alu_op = 2'bxx;
+                end	 
+            endcase
+        end
     end
 
     /*  ALU Decoder  */

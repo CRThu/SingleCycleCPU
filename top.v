@@ -1,7 +1,4 @@
-`timescale 1ns/100ps
-
 //`define __QUARTUS__
-
 `ifndef __QUARTUS__
     `include "alu.v"
     `include "cu.v"
@@ -10,10 +7,10 @@
     `include "rom.v"
 `endif
 
-module top;
-
-    reg clk = 0;
-    reg reset_n = 1;
+module top(
+	input   wire    clk,
+	input   wire    reset_n
+);
 
     // ROM
     wire    [31:0]  rom_dout        ;
@@ -105,9 +102,10 @@ module top;
     );
 
     wire [10:0] pc;
+    reg [10:0] pc_d = 11'h0;
     wire pc_src;
-    wire pc_branch;
-    wire pc_plus4;
+    wire [10:0] pc_branch;
+    wire [10:0] pc_plus4;
 
     // pc
     assign pc_src = cu_branch & alu_zero;
@@ -115,9 +113,12 @@ module top;
     assign pc_plus4 = pc_d + 4;
 
     // pc_ff
-    reg [10:0] pc_d;
-    always @(posedge clk) begin
-        pc_d <= pc;
+    always @(posedge clk or negedge reset_n)
+	begin
+        if(!reset_n)
+			pc_d <= 11'h0;
+        else
+			pc_d <= pc;
     end
 
     assign rom_addr = pc_d;
@@ -129,6 +130,8 @@ module top;
     assign cu_funct = instr[5:0];
 
     // rom to reg
+    wire result;
+
     assign reg_addr1    = instr[25:21];
     assign reg_addr2    = instr[20:16];
     assign reg_addr3    = cu_reg_dst ? instr[15:11] : instr[20:16];
@@ -149,29 +152,7 @@ module top;
     assign ram_write = reg_read2;
     assign ram_we = cu_mem_write;
 
-    wire result;
     assign result = cu_mem_to_reg ? ram_read : alu_result;
 
-
-    always
-        #10 clk=~clk;
-
-    always @(negedge reset_n) begin
-        pc_d = 11'h0;
-    end
-
-    integer i;
-    initial
-    begin
-        $dumpfile("top.vcd");
-        $dumpvars(0,top);
-
-        // load file
-        //$readmemb("rom.dat",u_rom.rom_block);
-
-        #20 reset_n = 0;
-
-        #100 $finish;
-    end
 
 endmodule // top

@@ -1,5 +1,5 @@
 $date
-	Fri Nov 15 20:35:50 2019
+	Sat Nov 16 01:09:17 2019
 $end
 $version
 	Icarus Verilog
@@ -7,82 +7,85 @@ $end
 $timescale
 	100ps
 $end
-$scope module top $end
-$var wire 32 ! alu_A [31:0] $end
-$var wire 3 " alu_F [2:0] $end
-$var wire 32 # instr [31:0] $end
-$var wire 1 $ pc_src $end
-$var wire 32 % ram_addr [31:0] $end
-$var wire 1 & ram_we $end
-$var wire 32 ' ram_write [31:0] $end
-$var wire 1 ( reg_we3 $end
-$var wire 11 ) rom_addr [10:0] $end
-$var wire 32 * signImm [31:0] $end
-$var wire 32 + rom_dout [31:0] $end
-$var wire 1 , result $end
-$var wire 32 - reg_write3 [31:0] $end
-$var wire 32 . reg_read2 [31:0] $end
-$var wire 32 / reg_read1 [31:0] $end
-$var wire 5 0 reg_addr3 [4:0] $end
-$var wire 5 1 reg_addr2 [4:0] $end
-$var wire 5 2 reg_addr1 [4:0] $end
-$var wire 32 3 ram_read [31:0] $end
-$var wire 1 4 pc_plus4 $end
-$var wire 1 5 pc_branch $end
-$var wire 11 6 pc [10:0] $end
-$var wire 1 7 cu_reg_write $end
-$var wire 1 8 cu_reg_dst $end
-$var wire 6 9 cu_op [5:0] $end
-$var wire 1 : cu_mem_write $end
-$var wire 1 ; cu_mem_to_reg $end
-$var wire 6 < cu_funct [5:0] $end
-$var wire 1 = cu_branch $end
-$var wire 1 > cu_alu_src $end
-$var wire 3 ? cu_alu_control [2:0] $end
-$var wire 1 @ alu_zero $end
-$var wire 32 A alu_result [31:0] $end
-$var wire 32 B alu_B [31:0] $end
-$var reg 1 C clk $end
-$var reg 11 D pc_d [10:0] $end
-$var reg 1 E reset_n $end
+$scope module top_tb $end
+$var reg 1 ! clk $end
+$var reg 1 " reset_n $end
+$scope module u_top $end
+$var wire 32 # alu_A [31:0] $end
+$var wire 3 $ alu_F [2:0] $end
+$var wire 1 ! clk $end
+$var wire 32 % instr [31:0] $end
+$var wire 1 & pc_src $end
+$var wire 32 ' ram_addr [31:0] $end
+$var wire 1 ( ram_we $end
+$var wire 32 ) ram_write [31:0] $end
+$var wire 1 * reg_we3 $end
+$var wire 1 " reset_n $end
+$var wire 11 + rom_addr [10:0] $end
+$var wire 32 , signImm [31:0] $end
+$var wire 32 - rom_dout [31:0] $end
+$var wire 1 . result $end
+$var wire 32 / reg_write3 [31:0] $end
+$var wire 32 0 reg_read2 [31:0] $end
+$var wire 32 1 reg_read1 [31:0] $end
+$var wire 5 2 reg_addr3 [4:0] $end
+$var wire 5 3 reg_addr2 [4:0] $end
+$var wire 5 4 reg_addr1 [4:0] $end
+$var wire 32 5 ram_read [31:0] $end
+$var wire 11 6 pc_plus4 [10:0] $end
+$var wire 11 7 pc_branch [10:0] $end
+$var wire 11 8 pc [10:0] $end
+$var wire 1 9 cu_reg_write $end
+$var wire 1 : cu_reg_dst $end
+$var wire 6 ; cu_op [5:0] $end
+$var wire 1 < cu_mem_write $end
+$var wire 1 = cu_mem_to_reg $end
+$var wire 6 > cu_funct [5:0] $end
+$var wire 1 ? cu_branch $end
+$var wire 1 @ cu_alu_src $end
+$var wire 3 A cu_alu_control [2:0] $end
+$var wire 1 B alu_zero $end
+$var wire 32 C alu_result [31:0] $end
+$var wire 32 D alu_B [31:0] $end
+$var reg 11 E pc_d [10:0] $end
 $scope module u_alu $end
 $var wire 32 F A [31:0] $end
 $var wire 32 G B [31:0] $end
 $var wire 3 H F [2:0] $end
-$var wire 1 @ zero $end
+$var wire 1 B zero $end
 $var reg 32 I Y [31:0] $end
 $upscope $end
 $scope module u_cu $end
 $var wire 6 J funct [5:0] $end
 $var wire 6 K op [5:0] $end
-$var wire 1 E reset_n $end
+$var wire 1 " reset_n $end
 $var reg 3 L alu_control [2:0] $end
 $var reg 2 M alu_op [1:0] $end
-$var reg 1 > alu_src $end
-$var reg 1 = branch $end
-$var reg 1 ; mem_to_reg $end
-$var reg 1 : mem_write $end
-$var reg 1 8 reg_dst $end
-$var reg 1 7 reg_write $end
+$var reg 1 @ alu_src $end
+$var reg 1 ? branch $end
+$var reg 1 = mem_to_reg $end
+$var reg 1 < mem_write $end
+$var reg 1 : reg_dst $end
+$var reg 1 9 reg_write $end
 $upscope $end
 $scope module u_ram $end
 $var wire 32 N addr [31:0] $end
-$var wire 1 C clk $end
+$var wire 1 ! clk $end
 $var wire 32 O data_read [31:0] $end
 $var wire 32 P data_write [31:0] $end
-$var wire 1 E reset_n $end
-$var wire 1 & we $end
+$var wire 1 " reset_n $end
+$var wire 1 ( we $end
 $var integer 32 Q i [31:0] $end
 $upscope $end
 $scope module u_register $end
 $var wire 5 R addr1 [4:0] $end
 $var wire 5 S addr2 [4:0] $end
 $var wire 5 T addr3 [4:0] $end
-$var wire 1 C clk $end
+$var wire 1 ! clk $end
 $var wire 32 U read1 [31:0] $end
 $var wire 32 V read2 [31:0] $end
-$var wire 1 E reset_n $end
-$var wire 1 ( we3 $end
+$var wire 1 " reset_n $end
+$var wire 1 * we3 $end
 $var wire 32 W write3 [31:0] $end
 $var integer 32 X i [31:0] $end
 $upscope $end
@@ -91,114 +94,274 @@ $var wire 11 Y addr [10:0] $end
 $var wire 32 Z dout [31:0] $end
 $upscope $end
 $upscope $end
+$upscope $end
 $enddefinitions $end
 #0
 $dumpvars
-bx Z
-bx Y
+b0 Z
+b0 Y
 bx X
 b0x W
 bx V
 bx U
-bx T
-bx S
-bx R
+b0 T
+b0 S
+b0 R
 bx Q
 bx P
 bx O
 bx N
-bx M
+b10 M
 bx L
-bx K
-bx J
+b0 K
+b0 J
 bx I
 bx H
 bx G
 bx F
-1E
+b0 E
 bx D
-0C
-bx B
+bx C
+xB
 bx A
-x@
-bx ?
-x>
-x=
-bx <
-x;
-x:
-bx 9
-x8
-x7
-b0x 6
-x5
-x4
-bx 3
-bx 2
+0@
+0?
+b0 >
+0=
+0<
+b0 ;
+1:
+19
+b100 8
+b100 7
+b100 6
+bx 5
+b0 4
+b0 3
+b0 2
 bx 1
 bx 0
-bx /
-bx .
-b0x -
-x,
-bx +
-bx *
+b0x /
+x.
+b0 -
+b0 ,
+b0 +
+1*
 bx )
-x(
+0(
 bx '
-x&
-bx %
-x$
+0&
+b0 %
+bx $
 bx #
-bx "
-bx !
+1"
+0!
 $end
 #100
-b0x )
-b0x Y
-b0x D
+x&
+bx M
+x=
+x(
+x<
+x?
+x@
+x:
+x*
+x9
+bx 2
+bx T
+bx 7
+bx 8
+bx ;
+bx K
+bx 4
+bx R
+bx 3
+bx S
+bx >
+bx J
+bx ,
+bx #
+bx F
+bx 1
+bx U
+bx )
+bx P
+bx 0
+bx V
+b1000 6
+bx %
+bx -
+bx Z
+b100 +
+b100 Y
+b100 E
+1!
+#200
+b0 /
+b0 W
+0.
+1B
+b100 7
+b0 5
+b0 O
+b0 '
+b0 N
+b0 C
+b0 I
+b0 D
+b0 G
+b0 2
+b0 T
+b0 ;
+b0 K
+b0 #
+b0 F
+b0 1
+b0 U
+b0 4
+b0 R
+b0 )
+b0 P
+b0 0
+b0 V
+b0 3
+b0 S
+b0 >
+b0 J
+b0 ,
+b100 6
+b0 %
+b0 -
+b0 Z
+b0 +
+b0 Y
+b0 E
+b100 8
+b10 $
+b10 H
+b10 A
+b10 L
+0&
+b0 M
+0=
+0(
+0<
+0?
+0@
+0:
+0*
+09
+b11111111 Q
+b100000 X
+0!
+0"
+#300
 b100000 X
 b11111111 Q
-1C
-#200
-b0 6
-0$
-04
-b0 M
-b10 "
-b10 H
-b10 ?
-b10 L
-0;
-0&
-0:
-0=
-0>
-08
-0(
-07
-b0 )
-b0 Y
-b0 D
-0C
-0E
-#300
-1C
+1!
 #400
-0C
+b0x /
+b0x W
+x.
+bx 5
+bx O
+bx '
+bx N
+bx C
+bx I
+bx $
+bx H
+bx A
+bx L
+b10 M
+1:
+1*
+19
+0!
+1"
 #500
-1C
+x&
+bx M
+x=
+x(
+x<
+x?
+x@
+x:
+x*
+x9
+bx 2
+bx T
+xB
+bx 7
+bx 8
+bx ;
+bx K
+bx 4
+bx R
+bx 3
+bx S
+bx >
+bx J
+bx ,
+bx D
+bx G
+b1000 6
+bx %
+bx -
+bx Z
+b100 +
+b100 Y
+b100 E
+bx #
+bx F
+bx 1
+bx U
+bx )
+bx P
+bx 0
+bx V
+1!
 #600
-0C
+0!
 #700
-1C
+bx 6
+bx +
+bx Y
+bx E
+1!
 #800
-0C
+0!
 #900
-1C
+1!
 #1000
-0C
+0!
 #1100
-1C
+1!
 #1200
-0C
+0!
+#1300
+1!
+#1400
+0!
+#1500
+1!
+#1600
+0!
+#1700
+1!
+#1800
+0!
+#1900
+1!
+#2000
+0!
+#2100
+1!
+#2200
+0!
+#2300
+1!
+#2400
+0!

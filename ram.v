@@ -15,7 +15,7 @@ module ram(
     integer i;
     always @(posedge clk or negedge reset_n)
     begin
-        if(reset_n == 1)
+        if(!reset_n)
         begin
             /*  reset  */
             for(i=0;i<255;i=i+1)
