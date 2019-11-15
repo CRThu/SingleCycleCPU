@@ -1,0 +1,204 @@
+$date
+	Fri Nov 15 20:35:50 2019
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	100ps
+$end
+$scope module top $end
+$var wire 32 ! alu_A [31:0] $end
+$var wire 3 " alu_F [2:0] $end
+$var wire 32 # instr [31:0] $end
+$var wire 1 $ pc_src $end
+$var wire 32 % ram_addr [31:0] $end
+$var wire 1 & ram_we $end
+$var wire 32 ' ram_write [31:0] $end
+$var wire 1 ( reg_we3 $end
+$var wire 11 ) rom_addr [10:0] $end
+$var wire 32 * signImm [31:0] $end
+$var wire 32 + rom_dout [31:0] $end
+$var wire 1 , result $end
+$var wire 32 - reg_write3 [31:0] $end
+$var wire 32 . reg_read2 [31:0] $end
+$var wire 32 / reg_read1 [31:0] $end
+$var wire 5 0 reg_addr3 [4:0] $end
+$var wire 5 1 reg_addr2 [4:0] $end
+$var wire 5 2 reg_addr1 [4:0] $end
+$var wire 32 3 ram_read [31:0] $end
+$var wire 1 4 pc_plus4 $end
+$var wire 1 5 pc_branch $end
+$var wire 11 6 pc [10:0] $end
+$var wire 1 7 cu_reg_write $end
+$var wire 1 8 cu_reg_dst $end
+$var wire 6 9 cu_op [5:0] $end
+$var wire 1 : cu_mem_write $end
+$var wire 1 ; cu_mem_to_reg $end
+$var wire 6 < cu_funct [5:0] $end
+$var wire 1 = cu_branch $end
+$var wire 1 > cu_alu_src $end
+$var wire 3 ? cu_alu_control [2:0] $end
+$var wire 1 @ alu_zero $end
+$var wire 32 A alu_result [31:0] $end
+$var wire 32 B alu_B [31:0] $end
+$var reg 1 C clk $end
+$var reg 11 D pc_d [10:0] $end
+$var reg 1 E reset_n $end
+$scope module u_alu $end
+$var wire 32 F A [31:0] $end
+$var wire 32 G B [31:0] $end
+$var wire 3 H F [2:0] $end
+$var wire 1 @ zero $end
+$var reg 32 I Y [31:0] $end
+$upscope $end
+$scope module u_cu $end
+$var wire 6 J funct [5:0] $end
+$var wire 6 K op [5:0] $end
+$var wire 1 E reset_n $end
+$var reg 3 L alu_control [2:0] $end
+$var reg 2 M alu_op [1:0] $end
+$var reg 1 > alu_src $end
+$var reg 1 = branch $end
+$var reg 1 ; mem_to_reg $end
+$var reg 1 : mem_write $end
+$var reg 1 8 reg_dst $end
+$var reg 1 7 reg_write $end
+$upscope $end
+$scope module u_ram $end
+$var wire 32 N addr [31:0] $end
+$var wire 1 C clk $end
+$var wire 32 O data_read [31:0] $end
+$var wire 32 P data_write [31:0] $end
+$var wire 1 E reset_n $end
+$var wire 1 & we $end
+$var integer 32 Q i [31:0] $end
+$upscope $end
+$scope module u_register $end
+$var wire 5 R addr1 [4:0] $end
+$var wire 5 S addr2 [4:0] $end
+$var wire 5 T addr3 [4:0] $end
+$var wire 1 C clk $end
+$var wire 32 U read1 [31:0] $end
+$var wire 32 V read2 [31:0] $end
+$var wire 1 E reset_n $end
+$var wire 1 ( we3 $end
+$var wire 32 W write3 [31:0] $end
+$var integer 32 X i [31:0] $end
+$upscope $end
+$scope module u_rom $end
+$var wire 11 Y addr [10:0] $end
+$var wire 32 Z dout [31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+bx Z
+bx Y
+bx X
+b0x W
+bx V
+bx U
+bx T
+bx S
+bx R
+bx Q
+bx P
+bx O
+bx N
+bx M
+bx L
+bx K
+bx J
+bx I
+bx H
+bx G
+bx F
+1E
+bx D
+0C
+bx B
+bx A
+x@
+bx ?
+x>
+x=
+bx <
+x;
+x:
+bx 9
+x8
+x7
+b0x 6
+x5
+x4
+bx 3
+bx 2
+bx 1
+bx 0
+bx /
+bx .
+b0x -
+x,
+bx +
+bx *
+bx )
+x(
+bx '
+x&
+bx %
+x$
+bx #
+bx "
+bx !
+$end
+#100
+b0x )
+b0x Y
+b0x D
+b100000 X
+b11111111 Q
+1C
+#200
+b0 6
+0$
+04
+b0 M
+b10 "
+b10 H
+b10 ?
+b10 L
+0;
+0&
+0:
+0=
+0>
+08
+0(
+07
+b0 )
+b0 Y
+b0 D
+0C
+0E
+#300
+1C
+#400
+0C
+#500
+1C
+#600
+0C
+#700
+1C
+#800
+0C
+#900
+1C
+#1000
+0C
+#1100
+1C
+#1200
+0C
