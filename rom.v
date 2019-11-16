@@ -5,6 +5,6 @@ module rom(
 
     reg [7:0] rom_block [1023:0];
 
-    assign dout = {rom_block[addr], rom_block[addr+1], rom_block[addr+2], rom_block[addr+3]};
+    assign dout = {rom_block[addr+0], rom_block[addr+1], rom_block[addr+2], rom_block[addr+3]};
 
 endmodule // rom
