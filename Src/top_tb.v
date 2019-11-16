@@ -2,7 +2,7 @@
 
 //`define __QUARTUS__
 `ifndef __QUARTUS__
-    `include "top.v"
+    `include "./Src/top.v"
 `endif
 
 module top_tb;
@@ -23,7 +23,7 @@ module top_tb;
         $dumpvars(0,top_tb);
 
         // load file
-        $readmemb("rom.dat",u_top.u_rom.rom_block);
+        $readmemb("../Sim/rom_test.dat",u_top.u_rom.rom_block);
 
         #20 reset_n = 0;
         #20 reset_n = 1;

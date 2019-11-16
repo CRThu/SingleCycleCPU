@@ -1,10 +1,10 @@
 //`define __QUARTUS__
 `ifndef __QUARTUS__
-    `include "alu.v"
-    `include "cu.v"
-    `include "ram.v"
-    `include "register.v"
-    `include "rom.v"
+    `include "./Src/alu.v"
+    `include "./Src/cu.v"
+    `include "./Src/ram.v"
+    `include "./Src/register.v"
+    `include "./Src/rom.v"
 `endif
 
 module top(
