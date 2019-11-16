@@ -30,7 +30,6 @@ module cu(
         else
         begin
             /*  main decoder  */
-            // TODO
             case(op)
                 /*  R-type instructions  */
                 6'b000000:
@@ -79,7 +78,19 @@ module cu(
                     mem_to_reg = 0; // X
                     alu_op = 2'b01;
                 end
-
+                
+                /*  NEW : addi  */
+                6'b001000:
+                begin
+                    reg_write = 1;
+                    reg_dst = 0;
+                    alu_src = 1;
+                    branch = 0;
+                    mem_write = 0;
+                    mem_to_reg = 0;
+                    alu_op = 2'b00;
+                end
+                
                 default:
                 begin
                     reg_write = 1'hx;

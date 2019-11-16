@@ -130,7 +130,7 @@ module top(
     assign cu_funct = instr[5:0];
 
     // rom to reg
-    wire result;
+    wire [31:0] result;
 
     assign reg_addr1    = instr[25:21];
     assign reg_addr2    = instr[20:16];

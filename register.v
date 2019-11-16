@@ -14,6 +14,7 @@ module register(
     );
 
     reg [31:0] register_block [31:0];
+    // TODO set [31] read only.
 
     assign read1 = register_block[addr1];
     assign read2 = register_block[addr2];
@@ -31,7 +32,7 @@ module register(
         begin
             /*  write  */
             if(we3)
-            register_block[addr3] <= write3;
+                register_block[addr3] <= write3;
         end
     end
 
