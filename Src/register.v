@@ -14,7 +14,6 @@ module register(
     );
 
     reg [31:0] register_block [31:0];
-    // TODO set [31] read only.
 
     assign read1 = (addr1==5'b11111) ? 31'h0 : register_block[addr1];
     assign read2 = (addr2==5'b11111) ? 31'h0 : register_block[addr2];

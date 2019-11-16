@@ -28,6 +28,10 @@ module top_tb;
         #20 reset_n = 0;
         #20 reset_n = 1;
 
-        #200 $finish;
+        `ifndef __QUARTUS__
+            #200 $finish;
+        `else
+            #200 $stop;
+        `endif
     end
 endmodule
