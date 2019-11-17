@@ -5,6 +5,7 @@
     `include "./Src/ram.v"
     `include "./Src/register.v"
     `include "./Src/rom.v"
+    `include "./Src/terminal.v"
 `endif
 
 module top(
@@ -99,6 +100,15 @@ module top(
         .addr           (   ram_addr        ),
         .data_read      (   ram_read        ),
         .data_write     (   ram_write       )
+    );
+
+    terminal u_terminal (
+        .clk            (   clk             ),
+        .reset_n        (   reset_n         ),
+        .we             (   ram_we          ),
+        .addr           (   ram_addr        ),
+        .data_write     (   ram_write       )
+
     );
 
     wire [10:0] pc;

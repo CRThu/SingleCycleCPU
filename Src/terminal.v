@@ -1,32 +1,32 @@
-module ram(
+module terminal(
         input   wire            clk,
         input   wire            reset_n,
         input   wire            we,
         input   wire    [31:0]  addr,
-        output  wire    [31:0]  data_read,
         input   wire    [31:0]  data_write
-    );
+);
 
-    reg [31:0] ram_block[255:0];
-
-    /*  read  */
-    assign data_read = ram_block[addr];
+    reg [7:0] terminal_bus;
+    reg [127:0] terminal_block;
 
     integer i;
     always @(posedge clk or negedge reset_n)
     begin
         if(!reset_n)
         begin
-            /*  reset  */
-            for(i=0;i<255;i=i+1)
-                ram_block[i] = 32'h0;
+            terminal_bus = 8'h0;
+            terminal_block = 512'h0;
         end
         else
         begin
             /*  write  */
-            if(we && (addr[31:8] == 24'h0))
-                ram_block[addr] <= data_write;
+            if(we && (addr[31:8] == 24'h1))
+            begin
+                terminal_bus <= data_write[7:0];
+                terminal_block <= (terminal_block << 8) + data_write[7:0];
+            end
         end
     end
 
-endmodule // ram
+
+endmodule // terminal

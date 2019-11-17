@@ -2,6 +2,16 @@
 
 carrot's simple single-cycle CPU -- CRT4004
 
+## Simulation Wave of Demo
+
+### rom_test_instr.dat
+
+[ TODO ]
+
+### rom_wawei_terminal.dat
+
+[ TODO ]
+
 ## Instruction Structure
 
 | Bus     | [31:26] | [25:21]   | [20:16]  | [15:11] | [10:6] | [5:0]  |
@@ -55,5 +65,7 @@ ROM : 2K * 8b = 16Kb
 REG : 31 * 32b = 992b
 
 RAM : 256 * 32b = 8Kb
+
+Terminal : 256 * 32b = 8Kb
 
 RAM(Reserved) : 4G * 32b = 128Gb

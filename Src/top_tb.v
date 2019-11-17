@@ -5,6 +5,11 @@
     `include "./Src/top.v"
 `endif
 
+`define __ROM_TEST_INSTR__
+//`define __ROM_WAWEI_TERMINAL__
+
+
+
 module top_tb;
 
     reg clk = 0;
@@ -23,15 +28,33 @@ module top_tb;
         $dumpvars(0,top_tb);
 
         // load file
-        $readmemb("../Sim/rom_test.dat",u_top.u_rom.rom_block);
+        `ifdef __ROM_TEST_INSTR__
+            $readmemb("../Sim/rom_test_instr.dat",u_top.u_rom.rom_block);
+        `else
+        `ifdef __ROM_WAWEI_TERMINAL__
+            $readmemb("../Sim/rom_wawei_terminal.dat",u_top.u_rom.rom_block);
+        `endif
+        `endif
 
         #20 reset_n = 0;
         #20 reset_n = 1;
 
         `ifndef __QUARTUS__
-            #200 $finish;
+            `ifdef __ROM_TEST_INSTR__
+                #200 $finish;
+            `else
+            `ifdef __ROM_WAWEI_TERMINAL__
+                #4500 $finish;
+            `endif
+            `endif
         `else
-            #200 $stop;
+            `ifdef __ROM_TEST_INSTR__
+                #200 $stop;
+            `else
+            `ifdef __ROM_WAWEI_TERMINAL__
+                #4500 $stop;
+            `endif
+            `endif
         `endif
     end
 endmodule
