@@ -4,13 +4,9 @@ carrot's simple single-cycle CPU -- CRT4004
 
 ## Simulation Wave of Demo
 
-### rom_test_instr.dat
+![rom_test_instr.dat](https://raw.githubusercontent.com/CRThu/SingleCycleCPU/master/img/rom_test_instr_compressed.png)
 
-[ TODO ]
-
-### rom_wawei_terminal.dat
-
-[ TODO ]
+![rom_wawei_terminal.dat](https://raw.githubusercontent.com/CRThu/SingleCycleCPU/master/img/rom_wawei_terminal_compressed.png)
 
 ## Instruction Structure
 
@@ -58,7 +54,7 @@ if register A = B, Branch to Address = (imm << 2) + (PC + 4).
 
 Y = A + imm.
 
-## storage size
+## Storage Size
 
 ROM : 2K * 8b = 16Kb
 
@@ -66,6 +62,6 @@ REG : 31 * 32b = 992b
 
 RAM : 256 * 32b = 8Kb
 
-Terminal : 256 * 32b = 8Kb
+Terminal(Virtual) : 256 * 32b = 8Kb
 
 RAM(Reserved) : 4G * 32b = 128Gb
