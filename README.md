@@ -4,9 +4,9 @@ carrot's simple single-cycle CPU -- CRT4004
 
 ## Simulation Wave of Demo
 
-![rom_test_instr.dat](https://raw.githubusercontent.com/CRThu/SingleCycleCPU/master/img/rom_test_instr_compressed.png)
+![rom_test_instr.dat](https://raw.githubusercontent.com/CRThu/SingleCycleCPU/master/img/rom_test_instr_compressed.jpg)
 
-![rom_wawei_terminal.dat](https://raw.githubusercontent.com/CRThu/SingleCycleCPU/master/img/rom_wawei_terminal_compressed.png)
+![rom_wawei_terminal.dat](https://raw.githubusercontent.com/CRThu/SingleCycleCPU/master/img/rom_wawei_terminal_compressed.jpg)
 
 ## Instruction Structure
 
