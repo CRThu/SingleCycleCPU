@@ -18,13 +18,13 @@ module alu(
             3'b101:     Y = A | (~B);
 
             3'b110:     Y = A - B;
-            3'b111:     Y = (A < B) ? 1 : 0;
+            3'b111:     Y = (A < B) ? 32'b1 : 32'b0;
 
             default:    Y = 32'hxxxxxxxx;
         endcase
     end
 
     /*  zero  */
-    assign zero = (A == B) ? 1 : 0;
+    assign zero = (A == B) ? 1'b1 : 1'b0;
 
 endmodule // alu

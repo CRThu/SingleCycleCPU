@@ -1,4 +1,4 @@
-//`define __QUARTUS__
+`define __QUARTUS__
 `ifndef __QUARTUS__
     `include "./Src/alu.v"
     `include "./Src/cu.v"
@@ -9,8 +9,9 @@
 `endif
 
 module top(
-	input   wire    clk,
-	input   wire    reset_n
+	input   wire            clk,
+	input   wire            reset_n,
+    output  wire    [7:0]   terminal_bus
 );
 
     // ROM
@@ -51,6 +52,9 @@ module top(
     wire    [31:0]  ram_addr        ;
     wire    [31:0]  ram_read        ;
     wire    [31:0]  ram_write       ;
+
+    // terminal
+    // wire    [7:0]   terminal_bus    ;
 
 
     rom  u_rom (
@@ -107,8 +111,8 @@ module top(
         .reset_n        (   reset_n         ),
         .we             (   ram_we          ),
         .addr           (   ram_addr        ),
-        .data_write     (   ram_write       )
-
+        .data_write     (   ram_write       ),
+        .terminal_bus   (   terminal_bus    )
     );
 
     wire [10:0] pc;
@@ -120,7 +124,7 @@ module top(
     // pc
     assign pc_src = cu_branch & alu_zero;
     assign pc = pc_src ? pc_branch : pc_plus4;
-    assign pc_plus4 = pc_d + 4;
+    assign pc_plus4 = pc_d + 11'h4;
 
     // pc_ff
     always @(posedge clk or negedge reset_n)
@@ -150,7 +154,7 @@ module top(
 
     // sign extend
     wire [31:0] signImm = {{16{instr[15]}},instr[15:0]};
-    assign pc_branch = pc_plus4 + (signImm << 2);
+    assign pc_branch = pc_plus4 + (signImm << 2'd2);
 
     // reg to alu
     assign alu_A = reg_read1;

@@ -1,3 +1,10 @@
 # Mac
 
 **/.DS_Store
+
+# Quartus
+*.v.bak
+/quartus/ep4ce15_crt4004/.qsys_edit/
+/quartus/ep4ce15_crt4004/db/
+/quartus/ep4ce15_crt4004/greybox_tmp/
+/quartus/ep4ce15_crt4004/simulation/

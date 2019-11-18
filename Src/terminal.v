@@ -3,10 +3,11 @@ module terminal(
         input   wire            reset_n,
         input   wire            we,
         input   wire    [31:0]  addr,
-        input   wire    [31:0]  data_write
+        input   wire    [31:0]  data_write,
+        output  reg     [7:0]   terminal_bus
 );
 
-    reg [7:0] terminal_bus;
+    // reg [7:0] terminal_bus;
     reg [127:0] terminal_block;
 
     integer i;
@@ -15,7 +16,7 @@ module terminal(
         if(!reset_n)
         begin
             terminal_bus = 8'h0;
-            terminal_block = 512'h0;
+            terminal_block = 128'h0;
         end
         else
         begin
