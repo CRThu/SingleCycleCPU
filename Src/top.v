@@ -1,4 +1,4 @@
-`define __QUARTUS__
+//`define __QUARTUS__
 `ifndef __QUARTUS__
     `include "./Src/alu.v"
     `include "./Src/cu.v"
