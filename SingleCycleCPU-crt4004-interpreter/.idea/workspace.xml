@@ -47,7 +47,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/interpreter.py" />
-      <option name="PARAMETERS" value="" />
+      <option name="PARAMETERS" value="input_asm_file.txt" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -73,7 +73,8 @@
       <updated>1574236682525</updated>
       <workItem from="1574236684774" duration="58000" />
       <workItem from="1574236762418" duration="8578000" />
-      <workItem from="1574343164460" duration="11363000" />
+      <workItem from="1574343164460" duration="11699000" />
+      <workItem from="1574428509709" duration="2183000" />
     </task>
     <servers />
   </component>
@@ -81,6 +82,6 @@
     <option name="version" value="1" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/SingleCycleCPU_crt4004_interpreter$interpreter.coverage" NAME="interpreter Coverage Results" MODIFIED="1574391849629" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/SingleCycleCPU_crt4004_interpreter$interpreter.coverage" NAME="interpreter Coverage Results" MODIFIED="1574430478868" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
