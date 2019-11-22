@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*-
 
 # interpreter for crt4004 ROM
-# version 1.0
+# version 1.1
 
 import sys
+import math
 
 # OP
 OP_RTYPE = '000000'
@@ -21,8 +22,8 @@ R_OR = '100101'
 R_SLT = '101010'
 
 # DEFINE
-_FORMAT_WORD_TO_BYTE_ = True
-_FORMAT_BIN_TO_HEX_ = False
+_FORMAT_WORD_TO_BYTE_ = False
+_FORMAT_BIN_TO_HEX_ = True
 _FORMAT_HEX_UPPERCASE_ = True
 
 
@@ -129,6 +130,69 @@ def format_bin_to_out(instr_bin_str):
         return format_hex(format_bin_to_hex(instr_bin_str))
 
 
+class mif_file_gen_class(object):
+    # TODO : changing parameters is not supported yet
+    def __init__(self, mif_path, mif_width=32, mif_depth=256, addr_radix='HEX', data_radix='HEX'):
+        # parameter
+        self.mif_path = mif_path
+        self.mif_width = mif_width
+        self.mif_depth = mif_depth
+        self.addr_radix = addr_radix
+        self.data_radix = data_radix
+        # value
+        self.write_mif_file = None
+        self.mif_lines = []
+        self.rom_addr = 0
+        self.append_header()
+        self.append_ender()
+
+    def read_lines(self):
+        return self.mif_lines
+
+    # write mif file header
+    def append_header(self):
+        self.mif_lines.append('WIDTH=' + str(self.mif_width) + ';')
+        self.mif_lines.append('DEPTH=' + str(self.mif_depth) + ';')
+        self.mif_lines.append('')
+        self.mif_lines.append('ADDRESS_RADIX=' + self.addr_radix + ';')
+        self.mif_lines.append('DATA_RADIX=' + self.data_radix + ';')
+        self.mif_lines.append('')
+        self.mif_lines.append('CONTENT BEGIN')
+
+    # write instructions
+    # '00:FFFFFFFF;'
+    def append_instructions(self, bin_instr):
+        if bin_instr[0] == '{' and bin_instr[-1] == '}':
+            self.mif_lines.insert(-1, bin_instr)
+            self.rom_addr += 1
+        elif bin_instr[0] == '@':
+            self.rom_addr = int(bin_instr[1:], 16)
+        elif len(bin_instr) == 32:
+            self.mif_lines.insert(-1, format(self.rom_addr, 'x').zfill(math.ceil(math.log(self.mif_depth, 16))) + ':'
+                                  + format(int(bin_instr, 2), 'X' if _FORMAT_HEX_UPPERCASE_ else 'x').zfill(
+                math.ceil(self.mif_width / 8 * 2)) + ';')
+            self.rom_addr += 1
+        else:
+            self.mif_lines.insert(-1, '*ERROR: {unknown}*')
+            self.rom_addr += 1
+
+    # write mif file end
+    def append_ender(self):
+        self.mif_lines.append('END;')
+
+    def open(self):
+        self.write_mif_file = open(self.mif_path, 'w')
+
+    def close(self):
+        self.write_mif_file.close()
+
+    def write_lines(self):
+        self.open()
+        for mif_line in self.mif_lines:
+            self.write_mif_file.write(mif_line + '\n')
+        self.close()
+
+
 def main():
     # read input file name
     try:
@@ -136,22 +200,27 @@ def main():
     except IndexError:
         asm_path = 'rom_raw.txt'
 
-    # read output file name
-    try:
-        dat_path = sys.argv[2]
-    except IndexError:
-        dat_path = asm_path.replace('.txt', '.dat')
-        if dat_path.rfind('.dat') == -1:
-            dat_path += '.dat'
+    # read output dat file name
+    dat_path = asm_path.replace('.txt', '.dat')
+    if dat_path.rfind('.dat') == -1:
+        dat_path += '.dat'
 
-    print('input file path:\t\t' + asm_path)
-    print('output file path:\t\t' + dat_path)
+    # read output mif file name
+    mif_path = asm_path.replace('.txt', '.mif')
+    if mif_path.rfind('.mif') == -1:
+        mif_path += '.mif'
+
+    print('input txt file path:\t' + asm_path)
+    print('output dat file path:\t' + dat_path)
+    print('output mif file path:\t' + mif_path)
 
     # read asm file
-    read_file = open(asm_path)
+    read_asm_file = open(asm_path)
 
     # preprocess
-    asm_instr_list = [i.replace('\r', '').replace('\n', '').replace('\t', ' ') for i in read_file.readlines()]
+    asm_instr_list = [i.replace('\r', '').replace('\n', '').replace('\t', ' ') for i in read_asm_file.readlines()]
+
+    read_asm_file.close()
 
     for asm_instr in asm_instr_list:
         if asm_instr == '':
@@ -174,13 +243,22 @@ def main():
     print('%s instruction list:\t' % ('bin' if not _FORMAT_BIN_TO_HEX_ else 'hex'), end='')
     print(out_instr_list)
 
-    read_file.close()
-
     # write dat file
-    write_file = open(dat_path, 'w')
+    write_dat_file = open(dat_path, 'w')
     for i in out_instr_list:
-        write_file.write(i+'\n')
-    write_file.close()
+        write_dat_file.write(i + '\n')
+    write_dat_file.close()
+
+    # write mif file
+    mif_file_gen = mif_file_gen_class(mif_path)
+
+    for bin_instr in bin_instr_list:
+        mif_file_gen.append_instructions(bin_instr)
+
+    print('mif file list:\t\t\t', end='')
+    print(mif_file_gen.read_lines())
+
+    mif_file_gen.write_lines()
 
 
 if __name__ == '__main__':
