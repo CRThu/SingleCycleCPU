@@ -1,3 +1,9 @@
+`define __QUARTUS__
+`ifdef __QUARTUS__
+    `define __IP_SPROM__
+`endif
+
+
 
 module rom(
         input   wire            clk,
@@ -6,19 +12,30 @@ module rom(
         input   wire    [10:0]  addr
     );
 
-    // use 256 words
-    reg [31:0] rom_block [255:0];
+    // use 256 words rom
     
-    reg [10:0] q_addr=11'h0;
+    `ifndef __IP_SPROM__
+        reg [31:0] rom_block [255:0];
+        
+        reg [10:0] q_addr=11'h0;
+        
+        always@(posedge clk or posedge aclr)
+        begin
+            if(aclr)
+                q_addr <= 11'h0;
+            else
+                q_addr <= addr;
+        end
+
+        assign dout = rom_block[q_addr[9:2]];
+    `else
+        // use ip_sprom
+        ip_sprom ip_sprom_inst (
+            .aclr       ( aclr ),
+            .address    ( addr[9:2] ),
+            .clock      ( clk ),
+            .q          ( dout )
+        );
+    `endif
     
-    always@(posedge clk or posedge aclr)
-    begin
-        if(aclr)
-            q_addr <= 11'h0;
-        else
-            q_addr <= addr;
-    end
-
-    assign dout = rom_block[q_addr[9:2]];
-
 endmodule // rom

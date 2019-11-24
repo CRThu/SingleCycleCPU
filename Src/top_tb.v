@@ -8,8 +8,6 @@
 `define __ROM_TEST_INSTR__
 //`define __ROM_WAWEI_TERMINAL__
 
-
-
 module top_tb;
 
     reg clk = 0;
@@ -28,6 +26,10 @@ module top_tb;
         $dumpfile("top.vcd");
         $dumpvars(0,top_tb);
 
+        #30 reset_n = 0;
+        #30 reset_n = 1;
+        
+        
         // load file
         `ifndef __QUARTUS__
             `ifdef __ROM_TEST_INSTR__
@@ -37,7 +39,7 @@ module top_tb;
                 $readmemb("../Sim/rom_wawei_terminal.dat",u_top.u_rom.rom_block);
             `endif
             `endif
-            `else
+        `else
             `ifndef __IP_SPROM__
                 `ifdef __ROM_TEST_INSTR__
                     $readmemb("../../../../Sim/rom_test_instr.dat",u_top.u_rom.rom_block);
@@ -48,13 +50,10 @@ module top_tb;
                 `endif
              `endif
         `endif
-
-        #30 reset_n = 0;
-        #30 reset_n = 1;
-
+        
         `ifndef __QUARTUS__
             `ifdef __ROM_TEST_INSTR__
-                #200 $finish;
+                #250 $finish;
             `else
             `ifdef __ROM_WAWEI_TERMINAL__
                 #4500 $finish;
@@ -62,7 +61,7 @@ module top_tb;
             `endif
         `else
             `ifdef __ROM_TEST_INSTR__
-                #200 $stop;
+                #250 $stop;
             `else
             `ifdef __ROM_WAWEI_TERMINAL__
                 #4500 $stop;
