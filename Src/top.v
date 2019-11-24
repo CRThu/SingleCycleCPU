@@ -1,4 +1,4 @@
-//`define __QUARTUS__
+`define __QUARTUS__
 `ifndef __QUARTUS__
     `include "./Src/alu.v"
     `include "./Src/cu.v"
@@ -6,6 +6,8 @@
     `include "./Src/register.v"
     `include "./Src/rom.v"
     `include "./Src/terminal.v"
+`else
+    //`define __IP_SPROM__
 `endif
 
 module top(
@@ -56,11 +58,23 @@ module top(
     // terminal
     // wire    [7:0]   terminal_bus    ;
 
+    
+    `ifndef __IP_SPROM__
+        rom  u_rom (
+            .clk            (   clk             ),
+            .aclr           (   ~reset_n        ),
+            .dout           (   rom_dout        ),
+            .addr           (   rom_addr        )
+        );
+    `else
+        ip_sprom ip_sprom_inst (
+            .aclr ( ~reset_n ),
+            .address ( rom_addr[9:2] ),
+            .clock ( clk ),
+            .q ( rom_dout )
+        );
 
-    rom  u_rom (
-        .dout           (   rom_dout        ),
-        .addr           (   rom_addr        )
-    );
+    `endif
 
     cu  u_cu (
         .reset_n        (   reset_n         ),
@@ -134,9 +148,15 @@ module top(
         else
 			pc_d <= pc;
     end
-
-    assign rom_addr = pc_d;
-
+    
+    // there is a pc_ff in sprom
+    //`ifndef __IP_SPROM__
+    //    assign rom_addr = pc_d;
+    //`else
+        assign rom_addr = pc;
+    //`endif
+    
+    
     wire [31:0] instr = rom_dout;
 
     // rom to cu

@@ -1,6 +1,6 @@
 `timescale 1ns/100ps
 
-//`define __QUARTUS__
+`define __QUARTUS__
 `ifndef __QUARTUS__
     `include "./Src/top.v"
 `endif
@@ -37,18 +37,20 @@ module top_tb;
                 $readmemb("../Sim/rom_wawei_terminal.dat",u_top.u_rom.rom_block);
             `endif
             `endif
-        `else
-            `ifdef __ROM_TEST_INSTR__
-                $readmemb("../../../../Sim/rom_test_instr.dat",u_top.u_rom.rom_block);
             `else
-            `ifdef __ROM_WAWEI_TERMINAL__
-                $readmemb("../../../../Sim/rom_wawei_terminal.dat",u_top.u_rom.rom_block);
-            `endif
-            `endif
+            `ifndef __IP_SPROM__
+                `ifdef __ROM_TEST_INSTR__
+                    $readmemb("../../../../Sim/rom_test_instr.dat",u_top.u_rom.rom_block);
+                `else
+                `ifdef __ROM_WAWEI_TERMINAL__
+                    $readmemb("../../../../Sim/rom_wawei_terminal.dat",u_top.u_rom.rom_block);
+                `endif
+                `endif
+             `endif
         `endif
 
-        #20 reset_n = 0;
-        #20 reset_n = 1;
+        #30 reset_n = 0;
+        #30 reset_n = 1;
 
         `ifndef __QUARTUS__
             `ifdef __ROM_TEST_INSTR__
