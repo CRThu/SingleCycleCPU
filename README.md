@@ -56,7 +56,9 @@ Y = A + imm.
 
 ## Storage Size
 
-ROM : 2K * 8b = 16Kb
+ROM : 256 * 32b = 8Kb
+
+ROM(Reserved) : 256 * 32b = 8Kb
 
 REG : 31 * 32b = 992b
 
@@ -65,3 +67,11 @@ RAM : 256 * 32b = 8Kb
 Terminal(Virtual) : 256 * 32b = 8Kb
 
 RAM(Reserved) : 4G * 32b = 128Gb
+
+## Interpreter
+
+Version 1.1. 
+
+Writed by Python 3.7.
+
+I will add support for CRT8008 too soon.
