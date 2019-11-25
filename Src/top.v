@@ -54,6 +54,10 @@ module top(
     wire    [31:0]  ram_write       ;
 
     // terminal
+    wire            terminal_we     ;
+    wire    [31:0]  terminal_addr   ;
+    wire    [31:0]  terminal_read   ;
+    wire    [31:0]  terminal_write  ;
     // wire    [7:0]   terminal_bus    ;
 
     rom  u_rom (
@@ -135,7 +139,7 @@ module top(
 			pc_d <= pc;
     end
     
-    // there is a ff in sprom
+    // signal datapath changed : input before PC_Register
     assign rom_addr = pc;
     //assign rom_addr = pc_d;
     

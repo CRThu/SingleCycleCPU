@@ -5,7 +5,6 @@
     `include "./Src/top.v"
 `else
     `define __IP_SPROM__
-    
 `endif
 
 `define __ROM_TEST_INSTR__

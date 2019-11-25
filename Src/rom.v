@@ -10,14 +10,14 @@ module rom(
         input   wire    [10:0]  addr
     );
 
-    // addr = pc before ff
+    // signal datapath changed : input before PC_Register
     // use 256 words rom
     
     `ifndef __IP_SPROM__
         reg [31:0] rom_block [255:0];
         
+        // input register
         reg [10:0] q_addr=11'h0;
-        
         always@(posedge clk or posedge aclr)
         begin
             if(aclr)
@@ -25,8 +25,15 @@ module rom(
             else
                 q_addr <= addr;
         end
-
-        assign dout = rom_block[q_addr[9:2]];
+        
+        // ROM Block
+        reg [31:0] q_dout=32'b0;
+        always@(*)
+        begin
+            q_dout= rom_block[q_addr[9:2]];
+        end
+        assign dout = q_dout;
+        
     `else
         // use ip_sprom
         ip_sprom u_ip_sprom (
