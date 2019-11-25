@@ -3,6 +3,9 @@
 `define __QUARTUS__
 `ifndef __QUARTUS__
     `include "./Src/top.v"
+`else
+    `define __IP_SPROM__
+    
 `endif
 
 `define __ROM_TEST_INSTR__

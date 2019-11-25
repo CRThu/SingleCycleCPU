@@ -3,8 +3,6 @@
     `define __IP_SPROM__
 `endif
 
-
-
 module rom(
         input   wire            clk,
         input   wire            aclr,
@@ -30,11 +28,11 @@ module rom(
         assign dout = rom_block[q_addr[9:2]];
     `else
         // use ip_sprom
-        ip_sprom ip_sprom_inst (
-            .aclr       ( aclr ),
+        ip_sprom u_ip_sprom (
+            .aclr       ( aclr      ),
             .address    ( addr[9:2] ),
-            .clock      ( clk ),
-            .q          ( dout )
+            .clock      ( clk       ),
+            .q          ( dout      )
         );
     `endif
     

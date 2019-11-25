@@ -100,7 +100,6 @@ module top(
 
     ram  u_ram (
         .clk            (   clk             ),
-        .reset_n        (   reset_n         ),
         .we             (   ram_we          ),
         .addr           (   ram_addr        ),
         .data_read      (   ram_read        ),
