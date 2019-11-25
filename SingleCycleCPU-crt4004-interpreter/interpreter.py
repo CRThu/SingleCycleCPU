@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # interpreter for crt4004 ROM
-# version 1.1
+# version 1.2
 
 import sys
 import math
@@ -13,6 +13,7 @@ OP_LW = '100011'
 OP_SW = '101011'
 OP_BEQ = '000100'
 OP_ADDI = '001000'
+OP_NOP = '111111'
 
 # R-TYPE
 R_ADD = '100000'
@@ -22,14 +23,14 @@ R_OR = '100101'
 R_SLT = '101010'
 
 # DEFINE
-_FORMAT_WORD_TO_BYTE_ = False
+#_FORMAT_WORD_TO_BYTE_ = False
 _FORMAT_BIN_TO_HEX_ = True
 _FORMAT_HEX_UPPERCASE_ = True
 
 
 # Convert '123' to '7b'
-def dec_str_to_hex(dec_str):
-    return format(int(dec_str, 10), 'x')
+def dec_str_to_hex_div4(dec_str):
+    return format(math.floor(int(dec_str, 10)/4), 'x')
 
 
 # Convert '123' to '01111011' (fill zero)
@@ -41,7 +42,7 @@ def dec_str_to_bin(dec_str, bin_len):
 def asm_interpreter(asm_instr):
     bin_instr = ""
     if asm_instr[0] == 'PC':
-        bin_instr = '@' + dec_str_to_hex(asm_instr[1])
+        bin_instr = '@' + dec_str_to_hex_div4(asm_instr[1])
     elif asm_instr[0] == 'ADD':
         bin_instr = (OP_RTYPE
                      + dec_str_to_bin(asm_instr[1].replace('$', ''), 5)
@@ -74,6 +75,11 @@ def asm_interpreter(asm_instr):
                      + dec_str_to_bin(asm_instr[1].replace('$', ''), 5)
                      + dec_str_to_bin(asm_instr[2].replace('$', ''), 5)
                      + dec_str_to_bin(asm_instr[3], 16))
+    elif asm_instr[0] == 'NOP':
+        bin_instr = (OP_NOP
+                     + '11111'
+                     + '11111'
+                     + '1111111111111111')
     else:
         bin_instr = '{undefined instruction:' + str(asm_instr) + '}'
 
@@ -84,15 +90,18 @@ def asm_interpreter(asm_instr):
 def format_bin(instr_str):
     if instr_str[0] == '{' and instr_str[-1] == '}':
         return '*ERROR: ' + instr_str + '*'
-    if not _FORMAT_WORD_TO_BYTE_:
-        return instr_str
     else:
-        if instr_str[0] == '@':
-            return instr_str
-        elif len(instr_str) == 32:
-            return instr_str[0:8] + ' ' + instr_str[8:16] + ' ' + instr_str[16:24] + ' ' + instr_str[24:32]
-        else:
-            return '*ERROR: {unknown}*'
+        return instr_str
+
+    # if not _FORMAT_WORD_TO_BYTE_:
+    #     return instr_str
+    # else:
+    #     if instr_str[0] == '@':
+    #         return instr_str
+    #     elif len(instr_str) == 32:
+    #         return instr_str[0:8] + ' ' + instr_str[8:16] + ' ' + instr_str[16:24] + ' ' + instr_str[24:32]
+    #     else:
+    #         return '*ERROR: {unknown}*'
 
 
 # convert bin to hex
@@ -111,15 +120,17 @@ def format_bin_to_hex(bin_instr):
 def format_hex(instr_str):
     if instr_str[0] == '{' and instr_str[-1] == '}':
         return '*ERROR: ' + instr_str + '*'
-    if not _FORMAT_WORD_TO_BYTE_:
-        return instr_str
     else:
-        if instr_str[0] == '@':
-            return instr_str
-        if len(instr_str) == 8:
-            return instr_str[0:2] + ' ' + instr_str[2:4] + ' ' + instr_str[4:6] + ' ' + instr_str[6:8]
-        else:
-            return '*ERROR: {unknown}*'
+        return instr_str
+    # if not _FORMAT_WORD_TO_BYTE_:
+    #     return instr_str
+    # else:
+    #     if instr_str[0] == '@':
+    #         return instr_str
+    #     if len(instr_str) == 8:
+    #         return instr_str[0:2] + ' ' + instr_str[2:4] + ' ' + instr_str[4:6] + ' ' + instr_str[6:8]
+    #     else:
+    #         return '*ERROR: {unknown}*'
 
 
 # convert bin to hex & format bin/hex

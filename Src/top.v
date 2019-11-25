@@ -137,6 +137,7 @@ module top(
     
     // there is a ff in sprom
     assign rom_addr = pc;
+    //assign rom_addr = pc_d;
     
     
     wire [31:0] instr = rom_dout;

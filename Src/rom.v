@@ -10,6 +10,7 @@ module rom(
         input   wire    [10:0]  addr
     );
 
+    // addr = pc before ff
     // use 256 words rom
     
     `ifndef __IP_SPROM__
