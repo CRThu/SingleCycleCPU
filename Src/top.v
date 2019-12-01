@@ -18,7 +18,7 @@ module top(
     wire    [31:0]  rom_dout        ;
     wire    [10:0]  rom_addr        ;
 
-    // CU
+    // Control Unit
     wire    [5:0]   cu_op           ;
     wire    [5:0]   cu_funct        ;
     wire            cu_reg_write    ;
@@ -29,14 +29,7 @@ module top(
     wire            cu_mem_to_reg   ;
     wire    [2:0]   cu_alu_control  ;
 
-    // ALU
-    wire    [31:0]  alu_A           ;
-    wire    [31:0]  alu_B           ;
-    wire    [2:0]   alu_F           ;
-    wire    [31:0]  alu_result      ;
-    wire            alu_zero        ;
-
-    // register
+    // Register Block
     wire    [4:0]   reg_addr1       ;
     wire    [31:0]  reg_read1       ;
 
@@ -46,6 +39,13 @@ module top(
     wire            reg_we3         ;
     wire    [4:0]   reg_addr3       ;
     wire    [31:0]  reg_write3      ;
+    
+    // ALU
+    wire    [31:0]  alu_A           ;
+    wire    [31:0]  alu_B           ;
+    wire    [2:0]   alu_F           ;
+    wire    [31:0]  alu_result      ;
+    wire            alu_zero        ;
 
     // RAM
     wire            ram_we          ;
