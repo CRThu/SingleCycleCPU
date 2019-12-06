@@ -70,8 +70,4 @@ RAM(Reserved) : 4G * 32b = 128Gb
 
 ## Interpreter
 
-Version 1.1. 
-
-Writed by Python 3.7.
-
-I will add support for CRT8008 too soon.
+Interpreter has been moved to the repo - [CRThu/Carrot Inside CPU Interpreter](https://github.com/CRThu/Carrot-Inside-CPU-Interpreter).
