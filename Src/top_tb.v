@@ -35,19 +35,19 @@ module top_tb;
         // load file
         `ifndef __QUARTUS__
             `ifdef __ROM_TEST_INSTR__
-                $readmemb("../Sim/rom_test_instr.dat",u_top.u_rom.rom_block);
+                $readmemh("../Sim/rom_test_instr.dat",u_top.u_rom.rom_block);
             `else
             `ifdef __ROM_WAWEI_TERMINAL__
-                $readmemb("../Sim/rom_wawei_terminal.dat",u_top.u_rom.rom_block);
+                $readmemh("../Sim/rom_wawei_terminal.dat",u_top.u_rom.rom_block);
             `endif
             `endif
         `else
             `ifndef __IP_SPROM__
                 `ifdef __ROM_TEST_INSTR__
-                    $readmemb("../../../../Sim/rom_test_instr.dat",u_top.u_rom.rom_block);
+                    $readmemh("../../../../Sim/rom_test_instr.dat",u_top.u_rom.rom_block);
                 `else
                 `ifdef __ROM_WAWEI_TERMINAL__
-                    $readmemb("../../../../Sim/rom_wawei_terminal.dat",u_top.u_rom.rom_block);
+                    $readmemh("../../../../Sim/rom_wawei_terminal.dat",u_top.u_rom.rom_block);
                 `endif
                 `endif
              `endif
